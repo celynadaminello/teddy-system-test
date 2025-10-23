@@ -1,8 +1,5 @@
-// packages/shell/src/App.tsx
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
-import { Button } from 'design-system';
 
 const LoginPage = React.lazy(() => import('login'));
 const ClientListPage = React.lazy(() => import('client-list'));
@@ -11,8 +8,8 @@ const SelectedClientsPage = React.lazy(() => import('selected-clients'));
 function App() {
   return (
     <BrowserRouter>
-      <header style={{ padding: 20, background: '#eee', display: 'flex', gap: 20 }}>
-        <h2>Teddy</h2>
+      <header style={{ padding: 20, background: '#f8f9fa', borderBottom: '1px solid #e0e0e0', display: 'flex', gap: 20, alignItems: 'center' }}>
+        <h2 style={{ margin: 0 }}>Teddy</h2>
         <nav>
           <Link to="/clients">Clientes</Link> |{' '}
           <Link to="/selected">Clientes Selecionados</Link>
@@ -21,10 +18,6 @@ function App() {
       </header>
 
       <main style={{ padding: 20 }}>
-        <h3>Botão do Design System:</h3>
-        <Button onClick={() => alert('Funciona!')}>Clique em mim!</Button>
-        <hr />
-
         <React.Suspense fallback={<div>Carregando página...</div>}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
