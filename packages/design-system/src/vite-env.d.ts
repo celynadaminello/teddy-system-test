@@ -1,1 +1,3 @@
-declare module '@module-federation/vite';
+/// <reference types="vite/client" />
+
+declare module 'vite-plugin-federation';

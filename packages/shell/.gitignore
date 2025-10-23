@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Cache do Vite
+.vite-temp/
+
+# Cache do Module Federation
+.__mf_temp/
+.__mf_virtual/
