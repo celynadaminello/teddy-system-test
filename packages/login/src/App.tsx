@@ -1,7 +1,5 @@
 import { Button, Input } from 'design-system';
 
-import './Login.css';
-
 function App() {
   return (
     <div className="login-container">
