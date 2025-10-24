@@ -10,7 +10,7 @@ export const Button = ({ children, ...props }: ButtonProps) => {
     width: '100%',
     backgroundColor: '#EC6724',
     color: '#fff',
-    border: 'none',
+    borderWidth: '0px',
     borderRadius: '4px',
     fontSize: '14px',
     fontWeight: '700',
