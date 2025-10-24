@@ -43,8 +43,9 @@ function App() {
           <ClientCard
             key={client.id}
             name={client.name}
-            company={client.company}
             salary={formatCurrency(client.salary)}
+            company={formatCurrency(client.companyValuation)}
+
             onSelect={() => handleSelectClient(client.id)}
             onEdit={() => handleEditClient(client.id)}
             onDelete={() => handleDeleteClient(client.id)}
