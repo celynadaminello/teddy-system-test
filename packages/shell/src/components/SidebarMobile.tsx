@@ -33,17 +33,19 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           className="w-full h-[128px] flex items-center justify-center transition-all duration-300"
           style={{ backgroundColor: '#363636' }}
         >
-          <img 
-            src={teddyLogo} 
-            alt="Teddy Logo" 
-            title="Logo da empresa Teddy"
-            className="w-full h-full object-cover"
-            style={{ 
-              filter: 'brightness(0) invert(1)',
-              width: '100px',
-              height: '50px'
-            }}
-          />
+          <Link to="/" onClick={onClose}>
+            <img 
+              src={teddyLogo} 
+              alt="Teddy Logo" 
+              title="Logo da empresa Teddy"
+              className="w-full h-full object-cover cursor-pointer"
+              style={{ 
+                filter: 'brightness(0) invert(1)',
+                width: '100px',
+                height: '50px'
+              }}
+            />
+          </Link>
         </div>
 
         {/* Collapse Button */}

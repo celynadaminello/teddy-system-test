@@ -36,28 +36,32 @@ export function Header() {
           />
         </button>
         
+        <Link to="/">
+          <img 
+            src={teddyLogo} 
+            alt="Teddy Logo" 
+            title="Logo da empresa Teddy"
+            className="lg:hidden cursor-pointer"
+            style={{ 
+              width: '100px',
+              height: '48.98px'
+            }}
+          />
+        </Link>
+      </div>
+
+      <Link to="/" className="hidden lg:block mx-auto">
         <img 
           src={teddyLogo} 
           alt="Teddy Logo" 
           title="Logo da empresa Teddy"
-          className="lg:hidden"
+          className="cursor-pointer"
           style={{ 
             width: '100px',
             height: '48.98px'
           }}
         />
-      </div>
-
-      <img 
-        src={teddyLogo} 
-        alt="Teddy Logo" 
-        title="Logo da empresa Teddy"
-        className="hidden lg:block mx-auto"
-        style={{ 
-          width: '100px',
-          height: '48.98px'
-        }}
-      />
+      </Link>
 
       <nav className="hidden lg:flex flex-1 justify-center gap-8">
         <Link 
