@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 interface SelectedClient {
   id: string;
@@ -14,21 +15,29 @@ interface ClientState {
   clearClients: () => void;
 }
 
-export const useClientStore = create<ClientState>((set) => ({
-  selectedClients: [],
+export const useClientStore = create(
+  persist<ClientState>(
+    (set) => ({
+      selectedClients: [],
 
-  addClient: (client) =>
-    set((state) => {
-      if (!state.selectedClients.some((c) => c.id === client.id)) {
-        return { selectedClients: [...state.selectedClients, client] };
-      }
-      return state; 
+      addClient: (client) =>
+        set((state) => {
+          if (!state.selectedClients.some((c) => c.id === client.id)) {
+            return { selectedClients: [...state.selectedClients, client] };
+          }
+          return state; 
+        }),
+
+      removeClient: (clientId) =>
+        set((state) => ({
+          selectedClients: state.selectedClients.filter((c) => c.id !== clientId),
+        })),
+
+      clearClients: () => set({ selectedClients: [] }),
     }),
-
-  removeClient: (clientId) =>
-    set((state) => ({
-      selectedClients: state.selectedClients.filter((c) => c.id !== clientId),
-    })),
-
-  clearClients: () => set({ selectedClients: [] }),
-}));
+    {
+      name: 'selected-clients-storage',
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
