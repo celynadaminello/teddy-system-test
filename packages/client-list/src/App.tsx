@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Button, ClientCard, Modal } from 'design-system';
+import { Button, ClientCard, Modal, Input } from 'design-system';
 import { useFetchClients } from './hooks/useFetchClients';
 import { formatCurrency } from './utils/formatCurrency';
 import { useClientStore } from 'shell';
 import type { Client } from './types/client';
 import { api } from './services/api';
 import { CreateClientForm } from './components/CreateClientForm';
+import { EditClientForm } from './components/EditClientForm';
 
 function App() {
   const [currentPageState, setCurrentPageState] = useState(1);
@@ -17,6 +18,10 @@ function App() {
   );
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deletingClient, setDeletingClient] = useState<Client | null>(null);
 
   const addClient = useClientStore((state) => state.addClient);
 
@@ -25,8 +30,15 @@ function App() {
     alert(`${client.name} adicionado aos selecionados!`);
   };
 
-  const handleEditClient = (id: string) => { console.log('Editar cliente:', id); };
-  const handleDeleteClient = (id: string) => { console.log('Excluir cliente:', id); };
+  const handleEditClient = (client: Client) => {
+    setEditingClient(client);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteClient = (client: Client) => {
+    setDeletingClient(client);
+    setIsDeleteModalOpen(true);
+  };
 
   const handleCreateClient = () => { setIsCreateModalOpen(true); };
   const handleCloseCreateModal = () => { setIsCreateModalOpen(false); };
@@ -34,6 +46,36 @@ function App() {
     handleCloseCreateModal();
     refetch();
     alert('Cliente criado com sucesso!');
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+    setEditingClient(null);
+  };
+  const handleEditSuccess = () => {
+    handleCloseEditModal();
+    refetch();
+    alert('Cliente atualizado com sucesso!');
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setDeletingClient(null);
+  };
+
+  const confirmDeleteClient = async () => {
+    if (!deletingClient) return;
+
+    try {
+      await api.delete(`/users/${deletingClient.id}`);
+      handleCloseDeleteModal();
+      refetch();
+      alert('Cliente excluído com sucesso!');
+    } catch (err: any) {
+      console.error('Erro ao excluir cliente:', err);
+      const apiErrorMessage = err.response?.data?.message || err.message;
+      alert(`Falha ao excluir cliente: ${apiErrorMessage || 'Erro desconhecido'}`);
+    }
   };
 
   const handlePageChange = (newPage: number) => {
@@ -95,8 +137,8 @@ function App() {
               salary={formatCurrency(client.salary)}
               company={formatCurrency(client.companyValuation)}
               onSelect={() => handleSelectClient(client)}
-              onEdit={() => handleEditClient(client.id)}
-              onDelete={() => handleDeleteClient(client.id)}
+              onEdit={() => handleEditClient(client)}
+              onDelete={() => handleDeleteClient(client)}
             />
           ))}
         </div>
@@ -104,7 +146,6 @@ function App() {
       {!isLoading && !error && clients.length === 0 && (
         <div className="text-center text-gray-500 mt-10">Nenhum cliente encontrado.</div>
       )}
-
 
       {!isLoading && !error && (
         <div className="mt-8 border-t pt-6">
@@ -133,6 +174,50 @@ function App() {
           onCancel={handleCloseCreateModal}
         />
       </Modal>
+
+      {editingClient && (
+        <Modal
+          isOpen={isEditModalOpen}
+          onClose={handleCloseEditModal}
+          title={`Editar cliente: ${editingClient.name}`}
+        >
+          <EditClientForm
+            client={editingClient}
+            onSuccess={handleEditSuccess}
+            onCancel={handleCloseEditModal}
+          />
+        </Modal>
+      )}
+
+      {deletingClient && (
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={handleCloseDeleteModal}
+          title={`Excluir cliente: ${deletingClient.name}?`}
+        >
+          <div className="space-y-4">
+            <p className="text-gray-700">
+              Você tem certeza que deseja excluir o cliente "{deletingClient.name}"? Esta ação não pode ser desfeita.
+            </p>
+            <div className="flex justify-end gap-3 pt-4">
+              <Button
+                type="button"
+                onClick={handleCloseDeleteModal}
+                className="bg-gray-200 text-gray-700 hover:bg-gray-300"
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                onClick={confirmDeleteClient}
+                className="bg-red-600 text-white hover:bg-red-700"
+              >
+                Excluir cliente
+              </Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
