@@ -184,7 +184,7 @@ function App() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
       <div className="mb-6 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-        <h2 style={{ fontSize: '18px', fontWeight: 400 }}>
+        <h1 style={{ fontSize: '18px', fontWeight: 400 }}>
           {clients.length > 0 ? (
             <>
               <span style={{ fontSize: '18px', fontWeight: 700 }}>{clients.length * currentPageState}</span> clientes encontrados:
@@ -192,7 +192,7 @@ function App() {
           ) : (
             'clientes encontrados:'
           )}
-        </h2>
+        </h1>
         <div className="flex items-center gap-2">
           <label htmlFor="limit-select" style={{ fontSize: '18px' }}>Clientes por página:</label>
           <div className="relative">

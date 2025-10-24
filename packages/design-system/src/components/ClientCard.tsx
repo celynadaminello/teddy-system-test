@@ -61,9 +61,9 @@ export const ClientCard: React.FC<ClientCardProps> = ({
   return (
     <div className="flex w-full flex-col border border-gray-200 bg-white p-4 shadow-lg" style={{ maxWidth: '285px', borderRadius: '4px' }}>
       <div className="text-center pb-3">
-        <h3 className="text-base font-bold text-gray-800" style={{ fontSize: '16px', fontWeight: 700 }}>
+        <h2 className="text-base font-bold text-gray-800" style={{ fontSize: '16px', fontWeight: 700 }}>
           {name}
-        </h3>
+        </h2>
       </div>
 
       <div className="space-y-2 text-center">

@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
-      <h2 style={{ fontSize: '22px', fontWeight: 700 }} className="mb-6">
+      <h1 style={{ fontSize: '22px', fontWeight: 700 }} className="mb-6">
         {selectedClients.length > 0 ? (
           <>
             <span style={{ fontSize: '22px', fontWeight: 700 }}>{selectedClients.length}</span> clientes selecionados:
@@ -17,7 +17,7 @@ function App() {
         ) : (
           'Clientes selecionados:'
         )}
-      </h2>
+      </h1>
 
       {selectedClients.length === 0 && (
         <p className="text-center text-gray-500">Nenhum cliente selecionado ainda.</p>
