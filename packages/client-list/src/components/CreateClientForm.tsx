@@ -65,9 +65,12 @@ export const CreateClientForm: React.FC<CreateClientFormProps> = ({ onSuccess })
       <div>
         <Input
           id="salary"
-          type="number"
+          type="text"
           value={salary}
-          onChange={(e) => setSalary(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9.,]/g, '');
+            setSalary(value);
+          }}
           placeholder="Digite o salário:"
           disabled={isSubmitting}
         />
@@ -76,9 +79,12 @@ export const CreateClientForm: React.FC<CreateClientFormProps> = ({ onSuccess })
       <div>
         <Input
           id="companyValuation"
-          type="number"
+          type="text"
           value={companyValuation}
-          onChange={(e) => setCompanyValuation(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9.,]/g, '');
+            setCompanyValuation(value);
+          }}
           placeholder="Digite o valor da empresa:"
           disabled={isSubmitting}
         />
