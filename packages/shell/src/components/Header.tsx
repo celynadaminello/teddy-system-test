@@ -13,7 +13,11 @@ export function Header() {
   return (
     <header 
       className="w-full h-[100px] flex items-center justify-between px-4 lg:px-12"
-      style={{ backgroundColor: '#f5f5f5', width: '100%' }}
+      style={{ 
+        backgroundColor: '#fff', 
+        width: '100%',
+        boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.1)'
+      }}
     >
       <div className="flex items-center">
         <button

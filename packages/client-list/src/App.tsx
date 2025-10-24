@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, ClientCard, Modal, Input } from 'design-system';
+import { Button, ClientCard, Modal } from 'design-system';
+import { HiOutlineChevronDown } from 'react-icons/hi2';
 import { useFetchClients } from './hooks/useFetchClients';
 import { formatCurrency } from 'design-system';
 import { useClientStore } from 'shell';
@@ -89,47 +90,145 @@ function App() {
    };
   const renderPaginationButtons = () => {
     const buttons = [];
-    for (let i = 1; i <= totalPages; i++) {
-      buttons.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={`px-3 py-1 rounded ${
-            i === currentPage ? 'bg-orange-500 text-white font-bold' : 'hover:bg-gray-200'
-          }`}
-        >
-          {i}
-        </button>
-      );
+    const maxVisiblePages = 5;
+    const sidePages = 2;
+
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        buttons.push(createPageButton(i));
+      }
+    } else {
+      buttons.push(createPageButton(1));
+      const startPage = Math.max(2, currentPage - sidePages);
+      const endPage = Math.min(totalPages - 1, currentPage + sidePages);
+
+      if (startPage > 2) {
+        buttons.push(createEllipsis());
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        if (i !== 1 && i !== totalPages) {
+          buttons.push(createPageButton(i));
+        }
+      }
+
+      if (endPage < totalPages - 1) {
+        buttons.push(createEllipsis());
+      }
+
+      if (totalPages > 1) {
+        buttons.push(createPageButton(totalPages));
+      }
     }
+
     return buttons;
-   };
+  };
+
+  const createPageButton = (pageNumber: number) => {
+    const isActive = pageNumber === currentPage;
+    return (
+      <button
+        key={pageNumber}
+        onClick={() => handlePageChange(pageNumber)}
+        style={{
+          width: '35px',
+          height: '35px',
+          fontSize: '14px',
+          fontWeight: 700,
+          borderRadius: '4px',
+          backgroundColor: isActive ? '#EC6724' : 'transparent',
+          color: isActive ? 'white' : 'black',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'background-color 0.2s'
+        }}
+        onMouseEnter={(e) => {
+          if (!isActive) {
+            e.currentTarget.style.backgroundColor = '#f5f5f5';
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (!isActive) {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }
+        }}
+      >
+        {pageNumber}
+      </button>
+    );
+  };
+
+  const createEllipsis = () => {
+    return (
+      <span
+        key="ellipsis"
+        style={{
+          width: '35px',
+          height: '35px',
+          fontSize: '14px',
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'black'
+        }}
+      >
+        ...
+      </span>
+    );
+  };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-7xl mx-auto px-4">
       <div className="mb-6 flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-        <h2 className="text-2xl font-semibold">
-          {clients.length > 0 ? `${clients.length * currentPageState} ` : ''}clientes encontrados:
+        <h2 style={{ fontSize: '18px', fontWeight: 400 }}>
+          {clients.length > 0 ? (
+            <>
+              <span style={{ fontSize: '18px', fontWeight: 700 }}>{clients.length * currentPageState}</span> clientes encontrados:
+            </>
+          ) : (
+            'clientes encontrados:'
+          )}
         </h2>
-        <div className="flex items-center gap-2 text-sm">
-          <label htmlFor="limit-select">Clientes por página:</label>
-          <select
-            id="limit-select"
-            value={itemsPerPage}
-            onChange={handleLimitChange}
-            className="rounded border border-gray-300 p-1"
-          >
-            <option value={8}>8</option>
-            <option value={16}>16</option>
-            <option value={24}>24</option>
-          </select>
+        <div className="flex items-center gap-2">
+          <label htmlFor="limit-select" style={{ fontSize: '18px' }}>Clientes por página:</label>
+          <div className="relative">
+            <select
+              id="limit-select"
+              value={itemsPerPage}
+              onChange={handleLimitChange}
+              style={{
+                width: '50px',
+                height: '25px',
+                border: '1px solid #D9D9D9',
+                fontSize: '12px',
+                fontWeight: 400,
+                paddingLeft: '8px',
+                paddingRight: '20px',
+                appearance: 'none',
+                borderRadius: '4px',
+                backgroundColor: '#f5f5f5'
+              }}
+            >
+              <option value={8}>8</option>
+              <option value={16}>16</option>
+              <option value={24}>24</option>
+            </select>
+            <HiOutlineChevronDown 
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none"
+              style={{ fontSize: '12px', color: '#666' }}
+            />
+          </div>
         </div>
       </div>
 
       {isLoading && <div className="text-center">Carregando clientes...</div>}
       {error && <div className="text-red-500 text-center">{error}</div>}
       {!isLoading && !error && clients.length > 0 && (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {clients.map((client) => (
             <ClientCard
               key={client.id}
@@ -149,15 +248,36 @@ function App() {
 
       {!isLoading && !error && (
         <div className="mt-8 border-t pt-6">
-          <Button
-            onClick={handleCreateClient}
-            className="w-full max-w-xs mb-6"
-          >
-            Criar cliente
-          </Button>
+          <div className="mb-6">
+            <Button
+              onClick={handleCreateClient}
+              className="w-full"
+              style={{
+                backgroundColor: 'transparent',
+                border: '2px solid #EC6724',
+                fontSize: '14px',
+                fontWeight: 700,
+                color: '#EC6724',
+                padding: '12px 24px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#EC6724';
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = '#EC6724';
+              }}
+            >
+              Criar cliente
+            </Button>
+          </div>
 
           {totalPages > 1 && (
-            <div className="mt-6 flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-2">
               {renderPaginationButtons()}
             </div>
           )}

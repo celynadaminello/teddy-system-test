@@ -1,8 +1,9 @@
-// packages/design-system/src/components/ClientCard.tsx
-
 import React from 'react';
+import plusIcon from '../../../shell/src/assets/plus.png';
+import pencilIcon from '../../../shell/src/assets/pencil.png';
+import trashIcon from '../../../shell/src/assets/trash.png';
+import minusIcon from '../../../shell/src/assets/minus.png';
 
-// 1. Ensure 'hideSelectButton?' is in the interface
 export interface ClientCardProps {
   name: string;
   salary: string;
@@ -10,12 +11,41 @@ export interface ClientCardProps {
   onSelect?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
-  hideSelectButton?: boolean; // Make sure this line exists and is optional (?)
+  hideSelectButton?: boolean;
+  isRemovable?: boolean;
 }
 
-const PlusIcon = () => <span>+</span>;
-const EditIcon = () => <span>✏️</span>;
-const DeleteIcon = () => <span>🗑️</span>;
+const PlusIcon = () => (
+  <img 
+    src={plusIcon} 
+    alt="Plus" 
+    style={{ width: '17px', height: '17px' }}
+  />
+);
+
+const EditIcon = () => (
+  <img 
+    src={pencilIcon} 
+    alt="Edit" 
+    style={{ width: '17px', height: '17px' }}
+  />
+);
+
+const DeleteIcon = () => (
+  <img 
+    src={trashIcon} 
+    alt="Delete" 
+    style={{ width: '17px', height: '17px' }}
+  />
+);
+
+const MinusIcon = () => (
+  <img 
+    src={minusIcon} 
+    alt="Minus" 
+    style={{ width: '17px', height: '17px' }}
+  />
+);
 
 
 export const ClientCard: React.FC<ClientCardProps> = ({
@@ -25,51 +55,69 @@ export const ClientCard: React.FC<ClientCardProps> = ({
   onSelect,
   onEdit,
   onDelete,
-  hideSelectButton, // 2. Ensure it's received here
+  hideSelectButton,
+  isRemovable,
 }) => {
   return (
-    <div className="flex w-full max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-4 shadow">
-      <div className="flex items-center justify-between border-b border-gray-200 pb-3">
-        <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
+    <div className="flex w-full flex-col border border-gray-200 bg-white p-4 shadow-lg" style={{ maxWidth: '285px', borderRadius: '4px' }}>
+      <div className="text-center pb-3">
+        <h3 className="text-base font-bold text-gray-800" style={{ fontSize: '16px', fontWeight: 700 }}>
+          {name}
+        </h3>
+      </div>
 
-        {!hideSelectButton && (
-          <button
-            onClick={onSelect}
-            title="Selecionar cliente"
-            className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 text-lg text-gray-500 hover:bg-gray-100"
-          >
-            <PlusIcon />
-          </button>
+      <div className="space-y-2 text-center">
+        <div className="text-sm" style={{ fontSize: '14px', fontWeight: 400 }}>
+          <span className="text-gray-500">Salário: </span>
+          <span className="text-gray-700">{salary}</span>
+        </div>
+        <div className="text-sm" style={{ fontSize: '14px', fontWeight: 400 }}>
+          <span className="text-gray-500">Empresa: </span>
+          <span className="text-gray-700">{company}</span>
+        </div>
+      </div>
+
+      <div className="mt-4 flex justify-between items-center">
+        {isRemovable ? (
+          <>
+            <div></div>
+            <button
+              onClick={onDelete}
+              title="Remover cliente"
+              className="flex items-center justify-center hover:opacity-70 transition-opacity"
+            >
+              <MinusIcon />
+            </button>
+          </>
+        ) : (
+          <>
+            {!hideSelectButton && (
+              <button
+                onClick={onSelect}
+                title="Selecionar cliente"
+                className="flex items-center justify-center hover:opacity-70 transition-opacity"
+              >
+                <PlusIcon />
+              </button>
+            )}
+            
+            <button
+              onClick={onEdit}
+              title="Editar cliente"
+              className="flex items-center justify-center hover:opacity-70 transition-opacity"
+            >
+              <EditIcon />
+            </button>
+            
+            <button
+              onClick={onDelete}
+              title="Excluir cliente"
+              className="flex items-center justify-center hover:opacity-70 transition-opacity"
+            >
+              <DeleteIcon />
+            </button>
+          </>
         )}
-      </div>
-
-      <div className="my-4 space-y-2">
-        <div className="flex justify-between text-sm">
-          <span className="font-medium text-gray-500">Salário:</span>
-          <span className="font-semibold text-gray-700">{salary}</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span className="font-medium text-gray-500">Empresa:</span>
-          <span className="font-semibold text-gray-700">{company}</span>
-        </div>
-      </div>
-
-      {/* Seção Inferior: Ações */}
-      <div className="mt-auto flex justify-end gap-3 pt-3">
-        <button
-          onClick={onEdit}
-          title="Editar cliente"
-          className="text-gray-400 hover:text-blue-500"
-        >
-          <EditIcon />
-        </button>
-        <button
-          onClick={onDelete}
-          title="Excluir cliente"
-          className="text-gray-400 hover:text-red-500"
-        >
-          <DeleteIcon />
-        </button>
       </div>
     </div>
   );
