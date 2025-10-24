@@ -69,6 +69,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           <nav className="flex flex-col transition-all duration-300 delay-100" style={{ gap: '11.96px' }}>
             <Link 
               to="/" 
+              onClick={onClose}
               className="flex items-center gap-3 py-2 text-black hover:text-[#EE7D46] transition-colors"
               style={{ 
                 fontFamily: 'Geologica, sans-serif',
@@ -82,6 +83,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
 
             <Link 
               to="/clients" 
+              onClick={onClose}
               className={`flex items-center gap-3 py-2 transition-colors ${
                 location.pathname === '/clients' 
                   ? 'text-[#EE7D46]' 
@@ -99,6 +101,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
 
             <Link 
               to="/selected" 
+              onClick={onClose}
               className={`flex items-center gap-3 py-2 transition-colors ${
                 location.pathname === '/selected' 
                   ? 'text-[#EE7D46]' 
