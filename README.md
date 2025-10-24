@@ -84,16 +84,29 @@ teddy-system-test/
 
 1.  **Testes Unitários (Lógica e UI):**
 
-    ```bash
-    # Na raiz, ele roda os testes de todos os workspaces
-    npm test
-    ```
-
-    _Os testes verificam os componentes do Design System e a lógica das Stores (Zustand)._
+    * **Comando:** O comando na raiz executará os testes do Vitest em todos os pacotes (`shell`, `design-system`) que possuem um script `test` definido.
+        ```bash
+        npm test
+        ```
+    * _Os testes verificam os componentes do Design System e a lógica das Stores (Zustand)._
 
 2.  **Testes End-to-End (E2E - Cypress):**
-    a. Inicie o servidor dev (`cd packages/shell && npm run dev`).
-    b. Abra a interface do Cypress (em uma nova aba do terminal, na raiz): `npm run test:e2e:open`.
+
+    Os testes E2E validam o fluxo completo do usuário no ambiente de navegador.
+
+    a. **Inicie o Servidor Dev (Target):**
+       Abra um terminal e inicie o aplicativo principal.
+       ```bash
+       cd packages/shell
+       npm run dev
+       ```
+
+    b. **Abra a Interface de Testes (Na Raiz):**
+       Abra uma **segunda aba** do terminal e, na raiz do projeto, inicie o Cypress.
+       ```bash
+       npm run test:e2e:open
+       ```
+    * *Siga o Cypress UI e clique no arquivo `client-workflow.cy.ts` para iniciar a simulação.*
 
 ## 🔧 Scripts Disponíveis
 
@@ -147,7 +160,7 @@ docker build --no-cache -t teddy-app .
 
 A aplicação está disponível publicamente na Vercel.
 
-**URL da Aplicação:** [https://teddy-system-test.vercel.app](https://teddy-system-test.vercel.app)
+**URL da Aplicação:** [https://teddy-system-test-shell.vercel.app](https://teddy-system-test-shell.vercel.app)
 
 ## 📝 Licença
 
