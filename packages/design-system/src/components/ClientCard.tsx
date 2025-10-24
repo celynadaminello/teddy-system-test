@@ -19,7 +19,7 @@ const PlusIcon = () => (
   <img 
     src={plusIcon} 
     alt="Plus" 
-    title="Adicionar cliente"
+    title="Ícone de adicionar cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -28,7 +28,7 @@ const EditIcon = () => (
   <img 
     src={pencilIcon} 
     alt="Edit" 
-    title="Editar cliente"
+    title="Ícone de editar cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -37,7 +37,7 @@ const DeleteIcon = () => (
   <img 
     src={trashIcon} 
     alt="Delete" 
-    title="Excluir cliente"
+    title="Ícone de excluir cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -46,7 +46,7 @@ const MinusIcon = () => (
   <img 
     src={minusIcon} 
     alt="Minus" 
-    title="Remover cliente"
+    title="Ícone de remover cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -88,6 +88,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
             <button
               onClick={onDelete}
               title="Remover cliente"
+              aria-label="Remover cliente"
               className="flex items-center justify-center hover:opacity-70 transition-opacity"
             >
               <MinusIcon />
@@ -99,6 +100,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
               <button
                 onClick={onSelect}
                 title="Selecionar cliente"
+                aria-label="Selecionar cliente"
                 className="flex items-center justify-center hover:opacity-70 transition-opacity"
               >
                 <PlusIcon />
@@ -108,6 +110,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
             <button
               onClick={onEdit}
               title="Editar cliente"
+              aria-label="Editar cliente"
               className="flex items-center justify-center hover:opacity-70 transition-opacity"
             >
               <EditIcon />
@@ -116,6 +119,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
             <button
               onClick={onDelete}
               title="Excluir cliente"
+              aria-label="Excluir cliente"
               className="flex items-center justify-center hover:opacity-70 transition-opacity"
             >
               <DeleteIcon />
