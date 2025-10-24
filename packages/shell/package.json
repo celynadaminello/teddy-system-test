@@ -1,5 +1,6 @@
 {
   "name": "shell",
+  "main": "./src/index.ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -16,7 +17,8 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4",
-    "selected-clients": "file:../selected-clients"
+    "selected-clients": "file:../selected-clients",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
