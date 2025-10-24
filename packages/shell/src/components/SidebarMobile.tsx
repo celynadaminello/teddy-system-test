@@ -3,6 +3,7 @@ import { FaArrowCircleLeft } from 'react-icons/fa';
 import { GoHomeFill } from 'react-icons/go';
 import { BsFillPersonFill, BsFillPersonCheckFill } from 'react-icons/bs';
 import teddyLogo from '../assets/teddy-logo.png';
+import { useUserStore } from '../stores/useUserStore';
 
 interface SidebarMobileProps {
   isOpen: boolean;
@@ -11,6 +12,12 @@ interface SidebarMobileProps {
 
 export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
   const location = useLocation();
+  const logout = useUserStore((state) => state.logout);
+
+  const handleLogout = () => {
+    logout();
+    onClose();
+  };
 
   return (
     <div className={`fixed inset-0 z-50 transition-opacity duration-300 ${
@@ -33,7 +40,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           className="w-full h-[128px] flex items-center justify-center transition-all duration-300"
           style={{ backgroundColor: '#363636' }}
         >
-          <Link to="/" onClick={onClose}>
+          <button onClick={handleLogout}>
             <img 
               src={teddyLogo} 
               alt="Teddy Logo" 
@@ -45,7 +52,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
                 height: '50px'
               }}
             />
-          </Link>
+          </button>
         </div>
 
         {/* Collapse Button */}
@@ -70,9 +77,8 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           }}
         >
           <nav className="flex flex-col transition-all duration-300 delay-100" style={{ gap: '11.96px' }}>
-            <Link 
-              to="/" 
-              onClick={onClose}
+            <button 
+              onClick={handleLogout}
               className="flex items-center gap-3 py-2 text-black hover:text-[#EE7D46] transition-colors"
               style={{ 
                 fontFamily: 'Geologica, sans-serif',
@@ -82,7 +88,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
             >
               <GoHomeFill size={20} />
               Home
-            </Link>
+            </button>
 
             <Link 
               to="/clients" 

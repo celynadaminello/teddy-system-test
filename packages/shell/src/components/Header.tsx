@@ -7,8 +7,13 @@ import { useState } from 'react';
 
 export function Header() {
   const userName = useUserStore((state) => state.name);
+  const logout = useUserStore((state) => state.logout);
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header 
@@ -36,7 +41,7 @@ export function Header() {
           />
         </button>
         
-        <Link to="/">
+        <button onClick={handleLogout}>
           <img 
             src={teddyLogo} 
             alt="Teddy Logo" 
@@ -47,10 +52,10 @@ export function Header() {
               height: '48.98px'
             }}
           />
-        </Link>
+        </button>
       </div>
 
-      <Link to="/" className="hidden lg:block mx-auto">
+      <button onClick={handleLogout} className="hidden lg:block mx-auto">
         <img 
           src={teddyLogo} 
           alt="Teddy Logo" 
@@ -61,7 +66,7 @@ export function Header() {
             height: '48.98px'
           }}
         />
-      </Link>
+      </button>
 
       <nav className="hidden lg:flex flex-1 justify-center gap-8">
         <Link 
@@ -86,13 +91,13 @@ export function Header() {
         >
           Clientes Selecionados
         </Link>
-        <Link 
-          to="/" 
+        <button 
+          onClick={handleLogout}
           className="text-base font-normal leading-none text-black hover:text-[#EC6724] hover:underline transition-colors duration-200"
           style={{ fontSize: '16px', lineHeight: '100%' }}
         >
           Sair
-        </Link>
+        </button>
       </nav>
 
       <div 

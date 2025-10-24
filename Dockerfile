@@ -1,17 +1,19 @@
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
-RUN npm install --silent
+RUN npm ci
 
 COPY packages packages/
 
 COPY tsconfig.json .
-COPY vite.config.ts . 
 
-RUN npm run build --workspace packages/shell
+WORKDIR /app/packages/shell
+RUN npm install
+RUN npm run build
+WORKDIR /app
 
 FROM nginx:alpine AS final
 

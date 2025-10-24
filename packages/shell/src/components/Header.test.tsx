@@ -44,8 +44,8 @@ describe('Header', () => {
     renderWithRouter(<Header />);
     
     const logos = screen.getAllByAltText('Teddy Logo');
-    expect(logos).toHaveLength(2); // Mobile e desktop logos
-    expect(screen.getByText((content, element) => {
+    expect(logos).toHaveLength(2);
+    expect(screen.getByText((_, element) => {
       return element?.textContent === 'Olá, Test User!';
     })).toBeInTheDocument();
   });
@@ -55,7 +55,7 @@ describe('Header', () => {
     
     renderWithRouter(<Header />);
     
-    expect(screen.getByText((content, element) => {
+    expect(screen.getByText((_, element) => {
       return element?.textContent === 'Olá, Usuário!';
     })).toBeInTheDocument();
   });

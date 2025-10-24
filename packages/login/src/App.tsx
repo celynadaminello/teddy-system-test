@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useUserStore, usePageTitle } from 'shell';
 
 function App() {
   const [name, setName] = useState('');
 
   const login = useUserStore((state) => state.login);
-  const navigate = useNavigate();
 
   usePageTitle({
     title: 'Login',
@@ -16,7 +14,6 @@ function App() {
   const handleLogin = () => {
     if (name.trim()) {
       login(name);
-      navigate('/clients');
     } else {
       alert('Por favor, digite seu nome.');
     }
