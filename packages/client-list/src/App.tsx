@@ -313,24 +313,29 @@ function App() {
         <Modal
           isOpen={isDeleteModalOpen}
           onClose={handleCloseDeleteModal}
-          title={`Excluir cliente: ${deletingClient.name}?`}
+          title="Excluir cliente"
         >
           <div className="space-y-4">
             <p className="text-gray-700">
-              Você tem certeza que deseja excluir o cliente "{deletingClient.name}"? Esta ação não pode ser desfeita.
+              Você está prestes a excluir o cliente: <span style={{ fontWeight: 700 }}>{deletingClient.name}</span>
             </p>
-            <div className="flex justify-end gap-3 pt-4">
-              <Button
-                type="button"
-                onClick={handleCloseDeleteModal}
-                className="bg-gray-200 text-gray-700 hover:bg-gray-300"
-              >
-                Cancelar
-              </Button>
+            <div className="pt-4">
               <Button
                 type="button"
                 onClick={confirmDeleteClient}
-                className="bg-red-600 text-white hover:bg-red-700"
+                style={{
+                  backgroundColor: '#EC6724',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  display: 'block',
+                  margin: '0 auto',
+                  height: '40px',
+                  width: '100%'
+                }}
               >
                 Excluir cliente
               </Button>

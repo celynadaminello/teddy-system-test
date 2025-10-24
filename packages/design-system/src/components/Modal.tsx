@@ -1,4 +1,5 @@
 import React from 'react';
+import closeIcon from '../../../shell/src/assets/close.png';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -7,7 +8,13 @@ export interface ModalProps {
   children: React.ReactNode;
 }
 
-const CloseIcon = () => <span>&times;</span>;
+const CloseIcon = () => (
+  <img 
+    src={closeIcon} 
+    alt="Close" 
+    style={{ width: '12px', height: '12px' }}
+  />
+);
 
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -24,14 +31,19 @@ export const Modal: React.FC<ModalProps> = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
     >
       <div
-        className="relative w-full max-w-lg rounded-lg bg-white p-6 shadow-xl"
+        className="relative rounded-lg bg-white p-6 shadow-xl"
+        style={{ 
+          width: '400px',
+          maxWidth: '90vw',
+          margin: '0 16px'
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b pb-3">
-          <h3 className="text-xl font-semibold">{title}</h3>
+          <h3 style={{ fontSize: '16px', fontWeight: 700 }}>{title}</h3>
           <button
             onClick={onClose}
-            className="text-2xl text-gray-400 hover:text-gray-600"
+            className="flex items-center justify-center hover:opacity-70 transition-opacity"
           >
             <CloseIcon />
           </button>

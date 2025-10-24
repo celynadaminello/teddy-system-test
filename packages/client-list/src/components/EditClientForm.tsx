@@ -9,7 +9,7 @@ interface EditClientFormProps {
   onCancel: () => void;
 }
 
-export const EditClientForm: React.FC<EditClientFormProps> = ({ client, onSuccess, onCancel }) => {
+export const EditClientForm: React.FC<EditClientFormProps> = ({ client, onSuccess }) => {
   const [name, setName] = useState(client.name);
   const [salary, setSalary] = useState(String(client.salary)); 
   const [companyValuation, setCompanyValuation] = useState(String(client.companyValuation)); 
@@ -59,53 +59,39 @@ export const EditClientForm: React.FC<EditClientFormProps> = ({ client, onSucces
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
       <div>
-        <label htmlFor="edit-name" className="block text-sm font-medium text-gray-700 mb-1">
-          Nome:
-        </label>
         <Input
           id="edit-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Digite o nome:"
           disabled={isSubmitting}
         />
       </div>
 
       <div>
-        <label htmlFor="edit-salary" className="block text-sm font-medium text-gray-700 mb-1">
-          Salário:
-        </label>
         <Input
           id="edit-salary"
           type="number"
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
+          placeholder="Digite o salário:"
           disabled={isSubmitting}
         />
       </div>
 
       <div>
-        <label htmlFor="edit-companyValuation" className="block text-sm font-medium text-gray-700 mb-1">
-          Valor da Empresa:
-        </label>
         <Input
           id="edit-companyValuation"
           type="number"
           value={companyValuation}
           onChange={(e) => setCompanyValuation(e.target.value)}
+          placeholder="Digite o valor da empresa:"
           disabled={isSubmitting}
         />
       </div>
 
-      <div className="flex justify-end gap-3 pt-4">
-        <Button
-          type="button"
-          onClick={onCancel}
-          disabled={isSubmitting}
-          className="bg-gray-200 text-gray-700 hover:bg-gray-300"
-        >
-          Cancelar
-        </Button>
+      <div className="pt-4">
         <Button
           type="submit"
           disabled={isSubmitting}

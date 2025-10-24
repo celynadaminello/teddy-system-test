@@ -4,9 +4,11 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = (props: InputProps) => {
   const style: React.CSSProperties = {
-    height: '60px',
+    height: '40px',
+    width: '360px',
+    maxWidth: '100%',
     padding: '12px 15px',
-    fontSize: '24px',
+    fontSize: '16px',
     fontWeight: '400',
     color: '#AAAAAA',
     border: '2px solid #D9D9D9',
