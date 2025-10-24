@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Input } from 'design-system';
 import { useUserStore } from 'shell';
 
 function App() {
@@ -26,21 +25,21 @@ function App() {
           Olá, seja bem-vindo!
         </h1>
 
-        <Input
+        <input
           type="text"
           placeholder="Digite o seu nome:"
-          className="w-full bg-[#f5f5f5]"
+          className="w-full max-w-[521px] h-[60px] text-2xl font-normal text-[#AAAAAA] border-2 border-[#D9D9D9] rounded bg-[#f5f5f5] px-4 py-3 block mx-auto"
           value={name}
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
         />
 
-        <Button
+        <button
           onClick={handleLogin}
-          className="w-full"
+          className="w-full max-w-[521px] h-[60px] bg-[#EC6724] text-white border-none rounded text-2xl font-bold cursor-pointer block mx-auto"
         >
           Entrar
-        </Button>
+        </button>
       </div>
     </div>
   );
