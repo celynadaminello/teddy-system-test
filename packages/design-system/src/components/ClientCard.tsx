@@ -1,5 +1,8 @@
+// packages/design-system/src/components/ClientCard.tsx
+
 import React from 'react';
 
+// 1. Ensure 'hideSelectButton?' is in the interface
 export interface ClientCardProps {
   name: string;
   salary: string;
@@ -7,6 +10,7 @@ export interface ClientCardProps {
   onSelect?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  hideSelectButton?: boolean; // Make sure this line exists and is optional (?)
 }
 
 const PlusIcon = () => <span>+</span>;
@@ -21,18 +25,22 @@ export const ClientCard: React.FC<ClientCardProps> = ({
   onSelect,
   onEdit,
   onDelete,
+  hideSelectButton, // 2. Ensure it's received here
 }) => {
   return (
     <div className="flex w-full max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-4 shadow">
       <div className="flex items-center justify-between border-b border-gray-200 pb-3">
         <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
-        <button
-          onClick={onSelect}
-          title="Selecionar cliente"
-          className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 text-lg text-gray-500 hover:bg-gray-100"
-        >
-          <PlusIcon />
-        </button>
+
+        {!hideSelectButton && (
+          <button
+            onClick={onSelect}
+            title="Selecionar cliente"
+            className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 text-lg text-gray-500 hover:bg-gray-100"
+          >
+            <PlusIcon />
+          </button>
+        )}
       </div>
 
       <div className="my-4 space-y-2">
@@ -46,6 +54,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
         </div>
       </div>
 
+      {/* Seção Inferior: Ações */}
       <div className="mt-auto flex justify-end gap-3 pt-3">
         <button
           onClick={onEdit}

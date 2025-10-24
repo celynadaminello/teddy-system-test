@@ -7,6 +7,5 @@ export function formatCurrency(value: number | null | undefined): string {
     if (typeof value !== 'number') {
         return 'N/A';
     }
-
     return formatter.format(value);
 }

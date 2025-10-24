@@ -11,8 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "design-system": "file:../design-system",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "shell": "file:../shell"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

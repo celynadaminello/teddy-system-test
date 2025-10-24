@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, ClientCard, Modal, Input } from 'design-system';
 import { useFetchClients } from './hooks/useFetchClients';
-import { formatCurrency } from './utils/formatCurrency';
+import { formatCurrency } from 'design-system';
 import { useClientStore } from 'shell';
 import type { Client } from './types/client';
 import { api } from './services/api';
