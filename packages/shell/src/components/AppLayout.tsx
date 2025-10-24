@@ -1,6 +1,9 @@
 import { Outlet, Link } from 'react-router-dom';
+import { useUserStore } from '../stores/useUserStore';
 
 export function AppLayout() {
+  const userName = useUserStore((state) => state.name);
+
   return (
     <>
       <header className="flex items-center gap-5 border-b border-gray-200 bg-gray-50 p-5">
@@ -14,7 +17,7 @@ export function AppLayout() {
           </Link>
         </nav>
         <div className="ml-auto text-gray-700">
-          Olá, Usuário!
+          Olá, {userName || 'Usuário'}!
         </div>
       </header>
 
