@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserStore } from 'shell';
+import { useUserStore, usePageTitle } from 'shell';
 
 function App() {
   const [name, setName] = useState('');
 
   const login = useUserStore((state) => state.login);
-
   const navigate = useNavigate();
+
+  usePageTitle({
+    title: 'Login',
+    description: 'Faça login no sistema Teddy para gerenciar seus clientes'
+  });
 
   const handleLogin = () => {
     if (name.trim()) {

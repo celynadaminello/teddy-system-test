@@ -19,6 +19,7 @@ const PlusIcon = () => (
   <img 
     src={plusIcon} 
     alt="Plus" 
+    title="Adicionar cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -27,6 +28,7 @@ const EditIcon = () => (
   <img 
     src={pencilIcon} 
     alt="Edit" 
+    title="Editar cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -35,6 +37,7 @@ const DeleteIcon = () => (
   <img 
     src={trashIcon} 
     alt="Delete" 
+    title="Excluir cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );
@@ -43,6 +46,7 @@ const MinusIcon = () => (
   <img 
     src={minusIcon} 
     alt="Minus" 
+    title="Remover cliente"
     style={{ width: '17px', height: '17px' }}
   />
 );

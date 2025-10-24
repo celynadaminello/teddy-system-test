@@ -1,11 +1,16 @@
 import { Button, ClientCard } from 'design-system';
-import { useClientStore } from 'shell';
+import { useClientStore, usePageTitle } from 'shell';
 import { formatCurrency } from 'design-system';
 
 function App() {
   const selectedClients = useClientStore((state) => state.selectedClients);
   const removeClient = useClientStore((state) => state.removeClient);
   const clearClients = useClientStore((state) => state.clearClients);
+
+  usePageTitle({
+    title: 'Clientes Selecionados',
+    description: 'Visualize e gerencie os clientes selecionados no sistema Teddy'
+  });
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4">

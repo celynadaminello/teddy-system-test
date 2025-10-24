@@ -27,6 +27,7 @@ export function Header() {
           <img 
             src={menuIcon} 
             alt="Menu" 
+            title="Abrir menu de navegação"
             className="w-6 h-5"
             style={{ 
               width: '24px',
@@ -38,6 +39,7 @@ export function Header() {
         <img 
           src={teddyLogo} 
           alt="Teddy Logo" 
+          title="Logo da empresa Teddy"
           className="lg:hidden"
           style={{ 
             width: '100px',
@@ -49,6 +51,7 @@ export function Header() {
       <img 
         src={teddyLogo} 
         alt="Teddy Logo" 
+        title="Logo da empresa Teddy"
         className="hidden lg:block mx-auto"
         style={{ 
           width: '100px',

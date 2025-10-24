@@ -3,7 +3,7 @@ import { Button, ClientCard, Modal } from 'design-system';
 import { HiOutlineChevronDown } from 'react-icons/hi2';
 import { useFetchClients } from './hooks/useFetchClients';
 import { formatCurrency } from 'design-system';
-import { useClientStore } from 'shell';
+import { useClientStore, usePageTitle } from 'shell';
 import type { Client } from './types/client';
 import { api } from './services/api';
 import { CreateClientForm } from './components/CreateClientForm';
@@ -17,6 +17,11 @@ function App() {
     currentPageState,
     itemsPerPage
   );
+
+  usePageTitle({
+    title: 'Lista de Clientes',
+    description: 'Visualize e gerencie todos os seus clientes no sistema Teddy'
+  });
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

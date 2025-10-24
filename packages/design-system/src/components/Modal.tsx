@@ -12,6 +12,7 @@ const CloseIcon = () => (
   <img 
     src={closeIcon} 
     alt="Close" 
+    title="Fechar modal"
     style={{ width: '12px', height: '12px' }}
   />
 );

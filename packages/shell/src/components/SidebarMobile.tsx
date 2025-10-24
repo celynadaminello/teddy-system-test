@@ -36,6 +36,7 @@ export function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
           <img 
             src={teddyLogo} 
             alt="Teddy Logo" 
+            title="Logo da empresa Teddy"
             className="w-full h-full object-cover"
             style={{ 
               filter: 'brightness(0) invert(1)',
