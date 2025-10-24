@@ -1,26 +1,23 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import federation from 'vite-plugin-federation'
 
 export default defineConfig({
-  plugins: [
-    federation({
-      name: 'designSystem',
-      filename: 'remoteEntry.js',
-      exposes: {
-        './Button': './src/components/Button.tsx',
-      },
-      shared: ['react', 'react-dom']
-    }),
-    react()
-  ],
-  server: {
-    cors: true
-  },
+  plugins: [react()],
   build: {
-    modulePreload: false,
-    target: 'esnext',
-    minify: false,
-    cssCodeSplit: false
+    lib: {
+      entry: './src/index.ts',
+      name: 'DesignSystem',
+      fileName: 'design-system',
+      formats: ['es']
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM'
+        }
+      }
+    }
   }
 })

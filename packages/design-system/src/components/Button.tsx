@@ -5,14 +5,17 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export const Button = ({ children, ...props }: ButtonProps) => {
-  const style = {
-    backgroundColor: '#F5821E',
-    color: 'white',
+  const style: React.CSSProperties = {
+    height: '60px',
+    backgroundColor: '#EC6724',
+    color: '#fff',
     border: 'none',
-    borderRadius: '6px',
-    padding: '10px 20px',
-    fontSize: '16px',
+    borderRadius: '4px',
+    fontSize: '24px',
+    fontWeight: '700',
     cursor: 'pointer',
+    display: 'block',
+    margin: '0 auto',
   };
 
   return (
