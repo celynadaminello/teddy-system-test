@@ -3,6 +3,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SidebarMobile } from './SidebarMobile';
 
+const mockLogout = vi.fn();
+
+vi.mock('../stores/useUserStore', () => ({
+  useUserStore: vi.fn(() => mockLogout),
+}));
+
 vi.mock('../assets/teddy-logo.png', () => ({
   default: 'mocked-teddy-logo.png',
 }));
@@ -63,7 +69,8 @@ describe('SidebarMobile', () => {
   it('should call onClose when close button is clicked', () => {
     renderWithRouter(<SidebarMobile isOpen={true} onClose={mockOnClose} />);
     
-    const closeButton = screen.getByRole('button');
+    // Agora temos múltiplos botões, vamos pegar o botão de fechar especificamente
+    const closeButton = screen.getByRole('button', { name: /arrow/i });
     fireEvent.click(closeButton);
     
     expect(mockOnClose).toHaveBeenCalledTimes(1);
@@ -78,10 +85,11 @@ describe('SidebarMobile', () => {
     expect(logo).toHaveAttribute('src', 'mocked-teddy-logo.png');
   });
 
-  it('should render navigation links', () => {
+  it('should render navigation links and buttons', () => {
     renderWithRouter(<SidebarMobile isOpen={true} onClose={mockOnClose} />);
     
-    expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument();
+    // Home agora é um botão, não um link
+    expect(screen.getByRole('button', { name: /home/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /person clientes/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /clientes selecionados/i })).toBeInTheDocument();
   });
@@ -98,8 +106,10 @@ describe('SidebarMobile', () => {
   it('should call onClose when navigation links are clicked', () => {
     renderWithRouter(<SidebarMobile isOpen={true} onClose={mockOnClose} />);
     
-    const homeLink = screen.getByRole('link', { name: /home/i });
-    fireEvent.click(homeLink);
+    // Home agora é um botão que faz logout
+    const homeButton = screen.getByRole('button', { name: /home/i });
+    fireEvent.click(homeButton);
+    expect(mockLogout).toHaveBeenCalledTimes(1);
     expect(mockOnClose).toHaveBeenCalledTimes(1);
     
     const clientsLink = screen.getByRole('link', { name: /person clientes/i });
